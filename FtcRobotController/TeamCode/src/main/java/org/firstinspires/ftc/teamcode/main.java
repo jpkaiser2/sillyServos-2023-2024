@@ -6,7 +6,6 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
-
 @TeleOp
 public class main extends LinearOpMode {
 
@@ -26,10 +25,6 @@ public class main extends LinearOpMode {
         double bl;
         double br;
         double speed = 1;
-        boolean slowmodeChanged = false;
-        boolean shouldSlowmode = false;
-        long xInput = System.currentTimeMillis();
-        long bInput = System.currentTimeMillis();
 
         frontLeft = hardwareMap.get(DcMotor.class, "frontLeft");
         backLeft = hardwareMap.get(DcMotor.class, "backLeft");
@@ -75,27 +70,7 @@ public class main extends LinearOpMode {
                 fr = y - x - clockwise;
                 bl = y - x + clockwise;
                 br = y + x - clockwise;
-//                if (gamepad1.right_bumper) {
-//                    speed = 4;
-//                } else if (gamepad1.left_bumper) {
-//                    speed = 4;
-//                } else if (gamepad1.start) {
-//                    if (!slowmodeChanged) {
-//                        shouldSlowmode = !shouldSlowmode;
-//                        slowmodeChanged = true;
-//                    }
-//                } else {
-//                    if (slowmodeChanged) {
-//                        slowmodeChanged = false;
-//                    } else {
-//                        speed = 1;
-//                    }
-//                }
-//                if (shouldSlowmode) {
-//                    speed = 2;
-//                }
-//
-//
+
                 if (gamepad1.left_trigger>0) {
                     arm.setPower(gamepad1.left_trigger/2);
                }
