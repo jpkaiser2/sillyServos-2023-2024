@@ -1,3 +1,11 @@
 # sillyServos
 Code repository for the Silly Servos robotics team
-<p>e</p>
+<hr>
+<br>
+<h2>Controls</h2>
+<p>Forward: Left joystick up</p>
+<p>Backward: Left joystick down</p>
+<p>Left: Left joystick left</p>
+<p>Right: Left joystick right</p>
+<p>Turn right: right joystick right</p>
+<p>Turn left: right joystick left</p>
