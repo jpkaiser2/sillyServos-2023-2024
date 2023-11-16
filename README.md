@@ -1,6 +1,5 @@
 # sillyServos
 Code repository for the Silly Servos robotics team
-<hr>
 <br>
 <h2>Controls</h2>
 <p>Forward: Left joystick up</p>
