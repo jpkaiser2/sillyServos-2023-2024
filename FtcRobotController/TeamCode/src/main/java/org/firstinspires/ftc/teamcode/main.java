@@ -38,7 +38,7 @@ public class main extends LinearOpMode {
         //reverse direction of motors since diagonal axles are reversed
         frontLeft.setDirection(DcMotor.Direction.REVERSE);
         backLeft.setDirection(DcMotor.Direction.REVERSE);
-        arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
 
         waitForStart();
         if (opModeIsActive()) {
@@ -47,7 +47,7 @@ public class main extends LinearOpMode {
             backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
             frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
             backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-            arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            //arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
 
             while (opModeIsActive()) {
@@ -86,32 +86,32 @@ public class main extends LinearOpMode {
 
                 //arm movement
                 if (gamepad1.left_trigger > 0) {
-                    //arm.setPower(gamepad1.left_trigger/2);
-                    while (gamepad1.left_trigger > 0) {
-                        arm.setTargetPosition(2);
-                    }
+                    arm.setPower(gamepad1.left_trigger);
+                    //while (gamepad1.left_trigger > 0) {
+                        //arm.setTargetPosition(100);
+                    //}
                 }
                 if (gamepad1.right_trigger > 0) {
-                    //arm.setPower(-gamepad1.right_trigger/2);
-                    while (gamepad1.left_trigger > 0) {
-                        arm.setTargetPosition(-2);
-                    }
+                    arm.setPower(-gamepad1.right_trigger);
+                    //while (gamepad1.left_trigger > 0) {
+                        //arm.setTargetPosition(-100);
+                    //}
                 }
 
                 //claw movement
                 if (gamepad1.left_bumper) {
                     // move to 180 degrees.
-                    claw.setPosition(1);
+                    claw.setPosition(0);
                 } else if (gamepad1.right_bumper) {
                     // move to 90 degrees.
-                    claw.setPosition(0.5);
+                    claw.setPosition(90);
                 }
-
                     speed = 0.5;
                     fl /= speed;
                     fr /= speed;
                     bl /= speed;
                     br /= speed;
+
 
                     telemetry.addData("SPEED", speed);
                     telemetry.addData("FLP", fl);
@@ -130,6 +130,7 @@ public class main extends LinearOpMode {
 
                     telemetry.update();
                 }
+           // arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             }
         }
     }
