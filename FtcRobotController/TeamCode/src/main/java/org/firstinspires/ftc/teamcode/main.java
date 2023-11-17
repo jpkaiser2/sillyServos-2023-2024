@@ -14,9 +14,10 @@ public class main extends LinearOpMode {
     private DcMotor frontRight;
     private DcMotor backRight;
     private DcMotor arm;
+    private Servo claw;
 
     @Override
-    public void runOpMode() throws InterruptedException{ //if broken delete throws
+    public void runOpMode() throws InterruptedException { //if broken delete throws
         float x;
         float y;
         float clockwise;
@@ -31,9 +32,11 @@ public class main extends LinearOpMode {
         frontRight = hardwareMap.get(DcMotor.class, "frontRight");
         backRight = hardwareMap.get(DcMotor.class, "backRight");
         arm = hardwareMap.get(DcMotor.class, "arm");
+        claw = hardwareMap.get(Servo.class, "claw")
 
         frontLeft.setDirection(DcMotor.Direction.REVERSE);
         backLeft.setDirection(DcMotor.Direction.REVERSE);
+        arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         waitForStart();
         if (opModeIsActive()) {
             frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -71,34 +74,50 @@ public class main extends LinearOpMode {
                 bl = y - x + clockwise;
                 br = y + x - clockwise;
 
-                if (gamepad1.left_trigger>0) {
-                    arm.setPower(gamepad1.left_trigger/2);
-               }
-                if (gamepad1.right_trigger>0) {
-                    arm.setPower(-gamepad1.right_trigger/2);
+                if (gamepad1.left_trigger > 0) {
+                    //arm.setPower(gamepad1.left_trigger/2);
+                    while (gamepad1.left_trigger > 0) {
+                        arm.setTargetPosition(2);
+                    }
                 }
-                speed = 0.5;
-                fl /= speed;
-                fr /= speed;
-                bl /= speed;
-                br /= speed;
+                if (gamepad1.right_trigger > 0) {
+                    //arm.setPower(-gamepad1.right_trigger/2);
+                    while (gamepad1.left_trigger > 0) {
+                        arm.setTargetPosition(-2);
+                    }
+                }
 
-                telemetry.addData("SPEED",speed);
-                telemetry.addData("FLP", fl);
-                telemetry.addData("FRP", fr);
-                telemetry.addData("BLP", bl);
-                telemetry.addData("BRP", br);
-                telemetry.addData("Clockwise", clockwise);
-                telemetry.addData("Arm-L", gamepad1.left_trigger);
-                telemetry.addData("Arm-R", gamepad1.right_trigger);
+                if (gamepad1.left_bumper) {
+                    // move to 180 degrees.
+                    claw.setPosition(1);
+                } else if (gamepad1.right_bumper) {
+                    // move to 90 degrees.
+                    claw.setPosition(0.5);
+                }
 
-                frontLeft.setPower(fl);
-                frontRight.setPower(fr);
-                backLeft.setPower(bl);
-                backRight.setPower(br);
+                    speed = 0.5;
+                    fl /= speed;
+                    fr /= speed;
+                    bl /= speed;
+                    br /= speed;
 
-                telemetry.update();
+                    telemetry.addData("SPEED", speed);
+                    telemetry.addData("FLP", fl);
+                    telemetry.addData("FRP", fr);
+                    telemetry.addData("BLP", bl);
+                    telemetry.addData("BRP", br);
+                    telemetry.addData("Clockwise", clockwise);
+                    telemetry.addData("Arm-L", gamepad1.left_trigger);
+                    telemetry.addData("Arm-R", gamepad1.right_trigger);
+                    telemetry.addData("Claw Position", claw.getPosition());
+
+                    frontLeft.setPower(fl);
+                    frontRight.setPower(fr);
+                    backLeft.setPower(bl);
+                    backRight.setPower(br);
+
+                    telemetry.update();
+                }
             }
         }
     }
-}
