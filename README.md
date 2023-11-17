@@ -2,7 +2,8 @@
 Code repository for the Silly Servos robotics team
 <br>
 <h2>Controls</h2>
-![game controller](https://jacobkaiserman.com/sillyServos/controller.png "ontrolld")
+<img src="https://jacobkaiserman.com/sillyServos/controller.png">
+
 
 <p>Forward: Left joystick up</p>
 <p>Backward: Left joystick down</p>
