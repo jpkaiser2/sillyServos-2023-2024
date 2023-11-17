@@ -9,4 +9,4 @@ Code repository for the Silly Servos robotics team
 <p>Right: Left joystick right</p>
 <p>Turn right: right joystick right</p>
 <p>Turn left: right joystick left</p>
-![Game Controller](controller.png)
+![Game Controller](https://jacobkaiserman.com/sillyServos/controller.png)
