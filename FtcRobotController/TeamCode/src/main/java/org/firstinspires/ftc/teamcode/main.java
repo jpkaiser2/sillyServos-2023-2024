@@ -27,6 +27,7 @@ public class main extends LinearOpMode {
         double br;
         double speed = 1;
 
+        //maps hardware
         frontLeft = hardwareMap.get(DcMotor.class, "frontLeft");
         backLeft = hardwareMap.get(DcMotor.class, "backLeft");
         frontRight = hardwareMap.get(DcMotor.class, "frontRight");
@@ -34,35 +35,44 @@ public class main extends LinearOpMode {
         arm = hardwareMap.get(DcMotor.class, "arm");
         claw = hardwareMap.get(Servo.class, "claw");
 
+        //reverse direction of motors since diagonal axles are reversed
         frontLeft.setDirection(DcMotor.Direction.REVERSE);
         backLeft.setDirection(DcMotor.Direction.REVERSE);
         arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
         waitForStart();
         if (opModeIsActive()) {
+            //set motors to brake
             frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
             backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
             frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
             backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
             arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-            boolean currentDirection = false;
+
+
             while (opModeIsActive()) {
+                //sets x & y axis of movement
                 x = gamepad1.left_stick_x;
                 y = -gamepad1.left_stick_y;
+                //sets rotation
                 clockwise = gamepad1.right_stick_x;
 
                 telemetry.addData("A", gamepad1.dpad_up);
+                //y-axis movement
                 if (gamepad1.dpad_up) {
                     y = (float) 1.0;
                 } else if (gamepad1.dpad_down) {
                     y = (float) -1.0;
                 }
 
+                //x-axis movement
                 if (gamepad1.dpad_right) {
                     x = (float) 1.0;
                 } else if (gamepad1.dpad_left) {
                     x = (float) -1.0;
                 }
 
+                //rotation
                 if (gamepad1.back) {
                     clockwise = (float) -1.0;
                 } else if (gamepad1.guide) {
@@ -74,6 +84,7 @@ public class main extends LinearOpMode {
                 bl = y - x + clockwise;
                 br = y + x - clockwise;
 
+                //arm movement
                 if (gamepad1.left_trigger > 0) {
                     //arm.setPower(gamepad1.left_trigger/2);
                     while (gamepad1.left_trigger > 0) {
@@ -87,6 +98,7 @@ public class main extends LinearOpMode {
                     }
                 }
 
+                //claw movement
                 if (gamepad1.left_bumper) {
                     // move to 180 degrees.
                     claw.setPosition(1);
