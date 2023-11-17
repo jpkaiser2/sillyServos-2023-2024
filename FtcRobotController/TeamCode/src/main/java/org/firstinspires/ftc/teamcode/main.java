@@ -32,7 +32,7 @@ public class main extends LinearOpMode {
         frontRight = hardwareMap.get(DcMotor.class, "frontRight");
         backRight = hardwareMap.get(DcMotor.class, "backRight");
         arm = hardwareMap.get(DcMotor.class, "arm");
-        claw = hardwareMap.get(Servo.class, "claw")
+        claw = hardwareMap.get(Servo.class, "claw");
 
         frontLeft.setDirection(DcMotor.Direction.REVERSE);
         backLeft.setDirection(DcMotor.Direction.REVERSE);
