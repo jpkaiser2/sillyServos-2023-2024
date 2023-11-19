@@ -1,8 +1,6 @@
 # sillyServos
 Code repository for the Silly Servos robotics team
 <br>
-<b>To do: map claw servo</b>
-<br>
 <h2>Controls</h2>
 <img src="https://jacobkaiserman.com/sillyServos/controller.png">
 
