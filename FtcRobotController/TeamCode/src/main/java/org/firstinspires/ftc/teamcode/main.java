@@ -86,25 +86,35 @@ public class main extends LinearOpMode {
 
                 //arm movement
                 if (gamepad1.left_trigger > 0) {
-                    arm.setPower(gamepad1.left_trigger);
+                    //arm.setPower(gamepad1.left_trigger);
                     //while (gamepad1.left_trigger > 0) {
                         //arm.setTargetPosition(100);
                     //}
+                    arm.setTargetPosition((arm.getCurrentPosition())-10);
+                    arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                    arm.setPower(0.75);
                 }
-                if (gamepad1.right_trigger > 0) {
-                    arm.setPower(-gamepad1.right_trigger);
+                else if (gamepad1.right_trigger > 0) {
+                    //arm.setPower(-gamepad1.right_trigger);
                     //while (gamepad1.left_trigger > 0) {
                         //arm.setTargetPosition(-100);
                     //}
+                    arm.setTargetPosition((arm.getCurrentPosition())+10);
+                    arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                    arm.setPower(0.75);
+                }
+                else {
+                    arm.setPower(0);
                 }
 
-                //claw movement
+
+                    //claw movement
                 if (gamepad1.left_bumper) {
                     // move to 180 degrees.
                     claw.setPosition(0);
                 } else if (gamepad1.right_bumper) {
                     // move to 90 degrees.
-                    claw.setPosition(90);
+                    claw.setPosition(1);
                 }
                     speed = 0.5;
                     fl /= speed;
