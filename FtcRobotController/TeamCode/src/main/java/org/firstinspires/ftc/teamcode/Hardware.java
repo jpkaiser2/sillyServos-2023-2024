@@ -50,16 +50,32 @@ public class Hardware {
     public void drive(String direction, int ticks) {
         switch(direction){
             case "forward":
-                //code for forward
+                 //code for forward
+                frontLeft.setTargetPosition(ticks);
+                backLeft.setTargetPosition(ticks);
+                frontRight.setTargetPosition(ticks);
+                backRight.setTargetPosition(ticks);
                 break;
             case "backward":
                 //code for backward
+                frontLeft.setTargetPosition(-ticks);
+                backLeft.setTargetPosition(-ticks);
+                frontRight.setTargetPosition(-ticks);
+                backRight.setTargetPosition(-ticks);
                 break;
             case "left":
                 //code for left
+                frontLeft.setTargetPosition(-ticks);
+                backLeft.setTargetPosition(ticks);
+                frontRight.setTargetPosition(ticks);
+                backRight.setTargetPosition(-ticks);
                 break;
             case "right":
                 //code for right
+                frontLeft.setTargetPosition(ticks);
+                backLeft.setTargetPosition(-ticks);
+                frontRight.setTargetPosition(-ticks);
+                backRight.setTargetPosition(ticks);
                 break;
             default:
                 myOpMode.telemetry.addData(">", "no direction set");

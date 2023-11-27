@@ -13,7 +13,10 @@ public class drive2 extends LinearOpMode{
     @Override
     public void runOpMode() throws InterruptedException { //if broken delete throws
 
-        robot.drive("forward", 1520);
+        robot.drive("forward", 1500);
+        robot.drive("right", 1500);
+        robot.drive("backward", 1500);
+        robot.drive("left", 1500);
 
     }
 }
