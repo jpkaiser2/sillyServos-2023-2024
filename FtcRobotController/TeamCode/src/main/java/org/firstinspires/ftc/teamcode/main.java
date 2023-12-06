@@ -13,8 +13,9 @@ public class main extends LinearOpMode {
     private DcMotor backLeft;
     private DcMotor frontRight;
     private DcMotor backRight;
-    private DcMotor arm;
-    private Servo claw;
+    //private DcMotor arm;
+    //private Servo claw;
+    private DcMotor hanger;
 
     @Override
     public void runOpMode() throws InterruptedException { //if broken delete throws
@@ -32,8 +33,9 @@ public class main extends LinearOpMode {
         backLeft = hardwareMap.get(DcMotor.class, "backLeft");
         frontRight = hardwareMap.get(DcMotor.class, "frontRight");
         backRight = hardwareMap.get(DcMotor.class, "backRight");
-        arm = hardwareMap.get(DcMotor.class, "arm");
-        claw = hardwareMap.get(Servo.class, "claw");
+        hanger = hardwareMap.get(DcMotor.class, "hanger");
+        //arm = hardwareMap.get(DcMotor.class, "arm");
+        //claw = hardwareMap.get(Servo.class, "claw");
 
         //reverse direction of motors since diagonal axles are reversed
         frontLeft.setDirection(DcMotor.Direction.REVERSE);
@@ -84,8 +86,17 @@ public class main extends LinearOpMode {
                 bl = y - x + clockwise;
                 br = y + x - clockwise;
 
+                if(gamepad1.a){
+                    hanger.setPower(1);
+                }
+                else if(gamepad1.b){
+                    hanger.setPower(-1);
+                }
+                else{
+                    hanger.setPower(0);
+                }
                 //arm movement
-                if (gamepad1.left_trigger > 0) {
+                /*if (gamepad1.left_trigger > 0) {
                     //arm.setPower(gamepad1.left_trigger);
                     //while (gamepad1.left_trigger > 0) {
                         //arm.setTargetPosition(100);
@@ -115,7 +126,7 @@ public class main extends LinearOpMode {
                 } else if (gamepad1.right_bumper) {
                     // move to 90 degrees.
                     claw.setPosition(1);
-                }
+                }*/
                     speed = 0.5;
                     fl /= speed;
                     fr /= speed;
@@ -131,7 +142,7 @@ public class main extends LinearOpMode {
                     telemetry.addData("Clockwise", clockwise);
                     telemetry.addData("Arm-L", gamepad1.left_trigger);
                     telemetry.addData("Arm-R", gamepad1.right_trigger);
-                    telemetry.addData("Claw Position", claw.getPosition());
+                    //telemetry.addData("Claw Position", claw.getPosition());
 
                     frontLeft.setPower(fl);
                     frontRight.setPower(fr);

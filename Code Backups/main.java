@@ -6,7 +6,6 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
-
 @TeleOp
 public class main extends LinearOpMode {
 
@@ -15,9 +14,11 @@ public class main extends LinearOpMode {
     private DcMotor frontRight;
     private DcMotor backRight;
     private DcMotor arm;
+    private Servo claw;
+    private DcMotor hanger;
 
     @Override
-    public void runOpMode() throws InterruptedException{ //if broken delete throws
+    public void runOpMode() throws InterruptedException { //if broken delete throws
         float x;
         float y;
         float clockwise;
@@ -26,45 +27,54 @@ public class main extends LinearOpMode {
         double bl;
         double br;
         double speed = 1;
-        boolean slowmodeChanged = false;
-        boolean shouldSlowmode = false;
-        long xInput = System.currentTimeMillis();
-        long bInput = System.currentTimeMillis();
 
+        //maps hardware
         frontLeft = hardwareMap.get(DcMotor.class, "frontLeft");
         backLeft = hardwareMap.get(DcMotor.class, "backLeft");
         frontRight = hardwareMap.get(DcMotor.class, "frontRight");
         backRight = hardwareMap.get(DcMotor.class, "backRight");
+        hanger = hardwareMap.get(DcMotor.class, "hanger");
         arm = hardwareMap.get(DcMotor.class, "arm");
+        claw = hardwareMap.get(Servo.class, "claw");
 
+        //reverse direction of motors since diagonal axles are reversed
         frontLeft.setDirection(DcMotor.Direction.REVERSE);
         backLeft.setDirection(DcMotor.Direction.REVERSE);
+
+
         waitForStart();
         if (opModeIsActive()) {
+            //set motors to brake
             frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
             backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
             frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
             backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-            arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-            boolean currentDirection = false;
+            //arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+
             while (opModeIsActive()) {
+                //sets x & y axis of movement
                 x = gamepad1.left_stick_x;
                 y = -gamepad1.left_stick_y;
+                //sets rotation
                 clockwise = gamepad1.right_stick_x;
 
                 telemetry.addData("A", gamepad1.dpad_up);
+                //y-axis movement
                 if (gamepad1.dpad_up) {
                     y = (float) 1.0;
                 } else if (gamepad1.dpad_down) {
                     y = (float) -1.0;
                 }
 
+                //x-axis movement
                 if (gamepad1.dpad_right) {
                     x = (float) 1.0;
                 } else if (gamepad1.dpad_left) {
                     x = (float) -1.0;
                 }
 
+                //rotation
                 if (gamepad1.back) {
                     clockwise = (float) -1.0;
                 } else if (gamepad1.guide) {
@@ -75,55 +85,73 @@ public class main extends LinearOpMode {
                 fr = y - x - clockwise;
                 bl = y - x + clockwise;
                 br = y + x - clockwise;
-//                if (gamepad1.right_bumper) {
-//                    speed = 4;
-//                } else if (gamepad1.left_bumper) {
-//                    speed = 4;
-//                } else if (gamepad1.start) {
-//                    if (!slowmodeChanged) {
-//                        shouldSlowmode = !shouldSlowmode;
-//                        slowmodeChanged = true;
-//                    }
-//                } else {
-//                    if (slowmodeChanged) {
-//                        slowmodeChanged = false;
-//                    } else {
-//                        speed = 1;
-//                    }
-//                }
-//                if (shouldSlowmode) {
-//                    speed = 2;
-//                }
-//
-//
-                if (gamepad1.left_trigger>0) {
-                    arm.setPower(gamepad1.left_trigger/2);
-               }
-                if (gamepad1.right_trigger>0) {
-                    arm.setPower(-gamepad1.right_trigger/2);
+
+                if(gamepad1.a){
+                    hanger.setPower(1);
                 }
-                speed = 0.5;
-                fl /= speed;
-                fr /= speed;
-                bl /= speed;
-                br /= speed;
+                else if(gamepad1.b){
+                    hanger.setPower(-1);
+                }
+                else{
+                    hanger.setPower(0);
+                }
+                //arm movement
+                if (gamepad1.left_trigger > 0) {
+                    //arm.setPower(gamepad1.left_trigger);
+                    //while (gamepad1.left_trigger > 0) {
+                        //arm.setTargetPosition(100);
+                    //}
+                    arm.setTargetPosition((arm.getCurrentPosition())-10);
+                    arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                    arm.setPower(0.75);
+                }
+                else if (gamepad1.right_trigger > 0) {
+                    //arm.setPower(-gamepad1.right_trigger);
+                    //while (gamepad1.left_trigger > 0) {
+                        //arm.setTargetPosition(-100);
+                    //}
+                    arm.setTargetPosition((arm.getCurrentPosition())+10);
+                    arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                    arm.setPower(0.75);
+                }
+                else {
+                    arm.setPower(0);
+                }
 
-                telemetry.addData("SPEED",speed);
-                telemetry.addData("FLP", fl);
-                telemetry.addData("FRP", fr);
-                telemetry.addData("BLP", bl);
-                telemetry.addData("BRP", br);
-                telemetry.addData("Clockwise", clockwise);
-                telemetry.addData("Arm-L", gamepad1.left_trigger);
-                telemetry.addData("Arm-R", gamepad1.right_trigger);
 
-                frontLeft.setPower(fl);
-                frontRight.setPower(fr);
-                backLeft.setPower(bl);
-                backRight.setPower(br);
+                    //claw movement
+                if (gamepad1.left_bumper) {
+                    // move to 180 degrees.
+                    claw.setPosition(0);
+                } else if (gamepad1.right_bumper) {
+                    // move to 90 degrees.
+                    claw.setPosition(1);
+                }
+                    speed = 0.5;
+                    fl /= speed;
+                    fr /= speed;
+                    bl /= speed;
+                    br /= speed;
 
-                telemetry.update();
+
+                    telemetry.addData("SPEED", speed);
+                    telemetry.addData("FLP", fl);
+                    telemetry.addData("FRP", fr);
+                    telemetry.addData("BLP", bl);
+                    telemetry.addData("BRP", br);
+                    telemetry.addData("Clockwise", clockwise);
+                    telemetry.addData("Arm-L", gamepad1.left_trigger);
+                    telemetry.addData("Arm-R", gamepad1.right_trigger);
+                    telemetry.addData("Claw Position", claw.getPosition());
+
+                    frontLeft.setPower(fl);
+                    frontRight.setPower(fr);
+                    backLeft.setPower(bl);
+                    backRight.setPower(br);
+
+                    telemetry.update();
+                }
+           // arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             }
         }
     }
-}

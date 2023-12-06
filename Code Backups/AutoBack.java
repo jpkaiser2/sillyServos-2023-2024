@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 
 @Autonomous
-public class autonomous extends LinearOpMode {
+public class AutoBack extends LinearOpMode {
     private DcMotor frontLeft;
     private DcMotor backLeft;
     private DcMotor frontRight;
@@ -43,7 +43,7 @@ public class autonomous extends LinearOpMode {
             backRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
             while (opModeIsActive()) {
-                forward(1550);
+                forward(3100);
 
                 frontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 backLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
