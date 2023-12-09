@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
-
+//Created by Jacob Kaiserman
 public class Hardware {
 
     /* Declare OpMode members. */
@@ -17,6 +17,7 @@ public class Hardware {
     private DcMotor frontRight = null;
     private DcMotor backRight = null;
     private DcMotor arm = null;
+    private DcMotor hanger = null;
 
 
 
@@ -30,7 +31,8 @@ public class Hardware {
         backLeft = myOpMode.hardwareMap.get(DcMotor.class, "backLeft");
         frontRight = myOpMode.hardwareMap.get(DcMotor.class, "frontRight");
         backRight = myOpMode.hardwareMap.get(DcMotor.class, "backRight");
-        arm = myOpMode.hardwareMap.get(DcMotor.class, "arm");
+        hanger = myOpMode.hardwareMap.get(DcMotor.class, "hanger");
+        //arm = myOpMode.hardwareMap.get(DcMotor.class, "arm");
 
         // To drive forward, the motor on one side needs to be reversed because the axles point in opposite directions.
         frontLeft.setDirection(DcMotor.Direction.REVERSE);
@@ -41,13 +43,14 @@ public class Hardware {
         frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-
         myOpMode.telemetry.addData(">", "Hardware Initialized");
         myOpMode.telemetry.update();
     }
 
 
+    //call drive function to drive in x direction for n ticks
     public void drive(String direction, int ticks) {
+        //switch statement for different directions
         switch(direction){
             case "forward":
                  //code for forward
