@@ -1,5 +1,5 @@
 # sillyServos
-Code repository for the Silly Servos robotics team
+Code repository for the Silly Servos robotics team 24213
 <br>
 <h2>Controls</h2>
 <img src="https://jacobkaiserman.com/sillyServos/controller.png">
