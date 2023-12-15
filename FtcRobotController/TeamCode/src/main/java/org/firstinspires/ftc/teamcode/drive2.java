@@ -10,14 +10,19 @@ import org.firstinspires.ftc.teamcode.Hardware;
 //Created by Jacob Kaiserman
 @Autonomous
 public class drive2 extends LinearOpMode{
+
     Hardware robot = new Hardware(this);
+
     @Override
+
     public void runOpMode() throws InterruptedException { //if broken delete throws
-
-        robot.drive("forward", 1500);
-        robot.drive("right", 1500);
-        robot.drive("backward", 1500);
-        robot.drive("left", 1500);
-
+        waitForStart();
+        if (opModeIsActive()) {
+            robot.init();
+            while (opModeIsActive()) {
+                robot.drive("forward", 1000000000);
+                break;
+            }
+        }
     }
 }

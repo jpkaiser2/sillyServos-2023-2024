@@ -13,11 +13,44 @@ public class autonomous extends LinearOpMode {
     private DcMotor backRight;
 
     //function for moving forward n ticks
-    public void forward(int ticks){
-        frontLeft.setTargetPosition(ticks);
-        backLeft.setTargetPosition(ticks);
-        frontRight.setTargetPosition(ticks);
-        backRight.setTargetPosition(ticks);
+    public void drive(String direction, int distance) {
+        //switch statement for different directions
+        distance = (int) Math.round(distance/0.036);
+        switch(direction){
+            case "forward":
+                //code for forward
+                frontLeft.setTargetPosition(distance);
+                backLeft.setTargetPosition(distance);
+                frontRight.setTargetPosition(distance);
+                backRight.setTargetPosition(distance);
+                telemetry.addData(">", "moved forward");
+                break;
+            case "backward":
+                //code for backward
+                frontLeft.setTargetPosition(-distance);
+                backLeft.setTargetPosition(-distance);
+                frontRight.setTargetPosition(-distance);
+                backRight.setTargetPosition(-distance);
+                break;
+            case "left":
+                //code for left
+                frontLeft.setTargetPosition(-distance);
+                backLeft.setTargetPosition(distance);
+                frontRight.setTargetPosition(distance);
+                backRight.setTargetPosition(-distance);
+                break;
+            case "right":
+                //code for right
+                frontLeft.setTargetPosition(distance);
+                backLeft.setTargetPosition(-distance);
+                frontRight.setTargetPosition(-distance);
+                backRight.setTargetPosition(distance);
+                break;
+            default:
+                telemetry.addData(">", "no direction set");
+                telemetry.update();
+        }
+
     }
 
     @Override
@@ -43,7 +76,8 @@ public class autonomous extends LinearOpMode {
             backRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
             while (opModeIsActive()) {
-                forward(1550);
+                drive("forward",20);
+                drive("backward",10);
 
                 frontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 backLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);

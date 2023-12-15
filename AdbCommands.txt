@@ -1,3 +1,6 @@
 Adb Connect: ./adb connect 192.168.43.1:5555
 Adb disconnect: ./adb disconnect
 Adb shell: ./adb shell
+
+
+1000 ticks = 36 inches
