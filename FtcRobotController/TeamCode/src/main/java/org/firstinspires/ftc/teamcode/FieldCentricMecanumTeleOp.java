@@ -14,6 +14,7 @@ public class FieldCentricMecanumTeleOp extends LinearOpMode {
     private DcMotor backLeft;
     private DcMotor frontRight;
     private DcMotor backRight;
+    private DcMotor hanger;
 
     @Override
     public void runOpMode() {
@@ -31,13 +32,14 @@ public class FieldCentricMecanumTeleOp extends LinearOpMode {
         backLeft = hardwareMap.get(DcMotor.class, "backLeft");
         frontRight = hardwareMap.get(DcMotor.class, "frontRight");
         backRight = hardwareMap.get(DcMotor.class, "backRight");
+        hanger = hardwareMap.get(DcMotor.class, "hanger");
 
         frontRight.setDirection(DcMotor.Direction.REVERSE);
         backRight.setDirection(DcMotor.Direction.REVERSE);
 
         IMU imu = hardwareMap.get(IMU.class, "imu");
         IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
-                RevHubOrientationOnRobot.LogoFacingDirection.UP,
+                RevHubOrientationOnRobot.LogoFacingDirection.RIGHT,
                 RevHubOrientationOnRobot.UsbFacingDirection.FORWARD));
         imu.initialize(parameters);
 
@@ -49,24 +51,41 @@ public class FieldCentricMecanumTeleOp extends LinearOpMode {
             backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
             while (opModeIsActive()) {
+                imu.resetYaw();
                 x = gamepad1.left_stick_x;
                 y = -gamepad1.left_stick_y;
                 clockwise = gamepad1.right_stick_x;
 
                 if (gamepad1.dpad_up) {
-                    y = (float) 1.0;
-                } else if (gamepad1.dpad_down) {
+                    imu.resetYaw();
                     y = (float) -1.0;
+                } else if (gamepad1.dpad_down) {
+                    imu.resetYaw();
+                    y = (float) 1.0;
                 }
 
                 if (gamepad1.dpad_right) {
+                    imu.resetYaw();
                     x = (float) 1.0;
                 } else if (gamepad1.dpad_left) {
+                    imu.resetYaw();
                     x = (float) -1.0;
                 }
 
-                if (gamepad1.back) {
+                if (gamepad1.ps) {
                     imu.resetYaw();
+                    imu.resetYaw();
+                }
+
+                if(gamepad1.a){
+
+                    hanger.setPower(1);
+                }
+                else if(gamepad1.b){
+                    hanger.setPower(-1);
+                }
+                else{
+                    hanger.setPower(0);
                 }
 
                 heading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);

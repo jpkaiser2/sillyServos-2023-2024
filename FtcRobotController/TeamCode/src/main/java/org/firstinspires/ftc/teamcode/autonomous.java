@@ -13,38 +13,38 @@ public class autonomous extends LinearOpMode {
     private DcMotor backRight;
 
     //function for moving forward n ticks
-    public void drive(String direction, int distance) {
+    public void drive(String direction, int power) {
         //switch statement for different directions
-        distance = (int) Math.round(distance/0.036);
         switch(direction){
             case "forward":
                 //code for forward
-                frontLeft.setTargetPosition(distance);
-                backLeft.setTargetPosition(distance);
-                frontRight.setTargetPosition(distance);
-                backRight.setTargetPosition(distance);
+                frontLeft.setPower(power);
+                frontLeft.setPower(power);
+                backLeft.setPower(power);
+                frontRight.setPower(power);
+                backRight.setPower(power);
                 telemetry.addData(">", "moved forward");
                 break;
             case "backward":
                 //code for backward
-                frontLeft.setTargetPosition(-distance);
-                backLeft.setTargetPosition(-distance);
-                frontRight.setTargetPosition(-distance);
-                backRight.setTargetPosition(-distance);
+                frontLeft.setPower(-power);
+                backLeft.setPower(-power);
+                frontRight.setPower(-power);
+                backRight.setPower(-power);
                 break;
             case "left":
                 //code for left
-                frontLeft.setTargetPosition(-distance);
-                backLeft.setTargetPosition(distance);
-                frontRight.setTargetPosition(distance);
-                backRight.setTargetPosition(-distance);
+                frontLeft.setPower(-power);
+                backLeft.setPower(power);
+                frontRight.setPower(power);
+                backRight.setPower(-power);
                 break;
             case "right":
                 //code for right
-                frontLeft.setTargetPosition(distance);
-                backLeft.setTargetPosition(-distance);
-                frontRight.setTargetPosition(-distance);
-                backRight.setTargetPosition(distance);
+                frontLeft.setPower(power);
+                backLeft.setPower(-power);
+                frontRight.setPower(-power);
+                backRight.setPower(power);
                 break;
             default:
                 telemetry.addData(">", "no direction set");
@@ -70,27 +70,10 @@ public class autonomous extends LinearOpMode {
             frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
             backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-            frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            backLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            frontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            backRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-            while (opModeIsActive()) {
-                drive("forward",20);
-                drive("backward",10);
+                drive("forward",10);
 
-                frontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                backLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                frontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                backRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-                //power is set
-                frontLeft.setPower(1);
-                frontRight.setPower(1);
-                backLeft.setPower(1);
-                backRight.setPower(1);
-
-            }
         }
     }
 }
