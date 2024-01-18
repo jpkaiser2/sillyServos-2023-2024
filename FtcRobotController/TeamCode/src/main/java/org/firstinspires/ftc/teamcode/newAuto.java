@@ -82,6 +82,14 @@ public class newAuto extends LinearOpMode {
             drive("forward",0.5);
             sleep(200);
             drive("stop",0);
+            sleep(200);
+            drive("left",1);
+            sleep(10000);
+            drive("stop",0);
+            //drive("forward",0.5);
+            //sleep(1000);
+            //drive("stop",0);
+            //drive("right",0.5);
 
             //frontLeft.setPower(0);
             //frontRight.setPower(0);
