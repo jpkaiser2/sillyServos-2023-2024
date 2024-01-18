@@ -3,16 +3,14 @@ import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-
-//Created by Jacob Kaiserman
-@Autonomous
-public class autonomous extends LinearOpMode {
+@Autonomous(name="MyAutoOp", group="Linear Opmode")
+// @Disabled
+public class newAuto extends LinearOpMode {
     private DcMotor frontLeft;
     private DcMotor backLeft;
     private DcMotor frontRight;
     private DcMotor backRight;
 
-    //function for moving forward n ticks
     public void drive(String direction, int power) {
         //switch statement for different directions
         switch(direction){
@@ -63,7 +61,10 @@ public class autonomous extends LinearOpMode {
     }
 
     @Override
-    public void runOpMode() throws InterruptedException{ //if broken delete throws
+    public void runOpMode() throws InterruptedException {
+        telemetry.addData("Status", "Initialized");
+        telemetry.update();
+
         frontLeft = hardwareMap.get(DcMotor.class, "frontLeft");
         backLeft = hardwareMap.get(DcMotor.class, "backLeft");
         frontRight = hardwareMap.get(DcMotor.class, "frontRight");
@@ -71,20 +72,18 @@ public class autonomous extends LinearOpMode {
 
         frontLeft.setDirection(DcMotor.Direction.REVERSE);
         backLeft.setDirection(DcMotor.Direction.REVERSE);
-
-
-
+        // Wait for the game to start (driver presses PLAY)
         waitForStart();
         if (opModeIsActive()) {
-            frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-            backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-            frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-            backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
-                drive("forward",1);
-                sleep(4000);
-                drive("stop",0);
-
+            frontLeft.setPower(0.5);
+            frontRight.setPower(0.5);
+            backRight.setPower(0.5);
+            backLeft.setPower(0.5);
+            sleep(200); // wait for two seconds
+            frontLeft.setPower(0);
+            frontRight.setPower(0);
+            backRight.setPower(0);
+            backLeft.setPower(0);
         }
     }
 }
