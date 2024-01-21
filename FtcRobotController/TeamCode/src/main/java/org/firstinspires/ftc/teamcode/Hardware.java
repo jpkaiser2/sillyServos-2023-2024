@@ -1,10 +1,17 @@
+//Created by Jacob Kaiserman
+//Silly Servos FTC Team #24213 - https://github.com/jpkaiser2/sillyServos
 package org.firstinspires.ftc.teamcode;
+
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
+
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
-//Created by Jacob Kaiserman
 public class Hardware {
 
     /* Declare OpMode members. */
@@ -54,52 +61,71 @@ public class Hardware {
 
 
     //call drive function to drive in x direction for n ticks
-    public void drive(String direction, int ticks) {
+    public void drive(String direction, double power, long time) {
         //switch statement for different directions
         switch(direction){
+            case "stop":
+                //code to stop
+                frontLeft.setPower(0);
+                frontLeft.setPower(0);
+                backLeft.setPower(0);
+                frontRight.setPower(0);
+                backRight.setPower(0);
+                myOpMode.sleep(time);
+                myOpMode.telemetry.addData(">", "stopped");
+                break;
             case "forward":
-                 //code for forward
-                frontLeft.setTargetPosition(ticks);
-                backLeft.setTargetPosition(ticks);
-                frontRight.setTargetPosition(ticks);
-                backRight.setTargetPosition(ticks);
+                //code for forward
+                frontLeft.setPower(power);
+                frontLeft.setPower(power);
+                backLeft.setPower(power);
+                frontRight.setPower(power);
+                backRight.setPower(power);
+                myOpMode.sleep(time);
                 myOpMode.telemetry.addData(">", "moved forward");
                 break;
             case "backward":
                 //code for backward
-                frontLeft.setTargetPosition(-ticks);
-                backLeft.setTargetPosition(-ticks);
-                frontRight.setTargetPosition(-ticks);
-                backRight.setTargetPosition(-ticks);
+                frontLeft.setPower(-power);
+                backLeft.setPower(-power);
+                frontRight.setPower(-power);
+                backRight.setPower(-power);
+                myOpMode.sleep(time);
+                myOpMode.telemetry.addData(">", "moved backward");
                 break;
             case "left":
                 //code for left
-                frontLeft.setTargetPosition(-ticks);
-                backLeft.setTargetPosition(ticks);
-                frontRight.setTargetPosition(ticks);
-                backRight.setTargetPosition(-ticks);
+                frontLeft.setPower(-power);
+                backLeft.setPower(power);
+                frontRight.setPower(power);
+                backRight.setPower(-power);
+                myOpMode.sleep(time);
+                myOpMode.telemetry.addData(">", "moved left");
                 break;
             case "right":
                 //code for right
-                frontLeft.setTargetPosition(ticks);
-                backLeft.setTargetPosition(-ticks);
-                frontRight.setTargetPosition(-ticks);
-                backRight.setTargetPosition(ticks);
+                frontLeft.setPower(power);
+                backLeft.setPower(-power);
+                frontRight.setPower(-power);
+                backRight.setPower(power);
+                myOpMode.sleep(time);
+                myOpMode.telemetry.addData(">", "moved right");
                 break;
             default:
                 myOpMode.telemetry.addData(">", "no direction set");
                 myOpMode.telemetry.update();
         }
-        frontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        backLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        frontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        backRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        //power is set
-        frontLeft.setPower(1);
-        frontRight.setPower(1);
-        backLeft.setPower(1);
-        backRight.setPower(1);
+    }
+
+    public void stop(){
+        frontLeft.setPower(0);
+        frontLeft.setPower(0);
+        backLeft.setPower(0);
+        frontRight.setPower(0);
+        backRight.setPower(0);
+        myOpMode.sleep(100);
+        myOpMode.telemetry.addData(">", "stopped");
     }
 
 
