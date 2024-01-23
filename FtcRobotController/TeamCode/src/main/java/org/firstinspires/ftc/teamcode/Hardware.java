@@ -117,7 +117,31 @@ public class Hardware {
         }
 
     }
-
+    public void turn(String direction, double power, long time) {
+        switch(direction){
+            case "left":
+                //code for forward
+                frontLeft.setPower(-power);
+                backLeft.setPower(-power);
+                frontRight.setPower(power);
+                backRight.setPower(power);
+                myOpMode.sleep(time);
+                myOpMode.telemetry.addData(">", "moved forward");
+                break;
+            case "right":
+                //code for backward
+                frontLeft.setPower(power);
+                backLeft.setPower(power);
+                frontRight.setPower(-power);
+                backRight.setPower(-power);
+                myOpMode.sleep(time);
+                myOpMode.telemetry.addData(">", "moved backward");
+                break;
+            default:
+                myOpMode.telemetry.addData(">", "no direction set");
+                myOpMode.telemetry.update();
+        }
+    }
     public void stop(){
         frontLeft.setPower(0);
         frontLeft.setPower(0);
