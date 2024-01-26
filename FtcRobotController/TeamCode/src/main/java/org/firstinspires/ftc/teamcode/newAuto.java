@@ -1,12 +1,13 @@
 //Created by Jacob Kaiserman
 //Silly Servos FTC Team #24213 - https://github.com/jpkaiser2/sillyServos
 package org.firstinspires.ftc.teamcode;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-@Autonomous(name="mainAuto", group="Linear Opmode")
-// @Disabled
+//@Autonomous(name="mainAuto", group="Linear Opmode")
+@Disabled
 public class newAuto extends LinearOpMode {
     private DcMotor frontLeft;
     private DcMotor backLeft;

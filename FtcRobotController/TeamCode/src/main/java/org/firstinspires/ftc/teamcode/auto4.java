@@ -6,11 +6,13 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 @Autonomous(name="auto4", group="Linear Opmode")
+//Auto for red alliance back
 // @Disabled
 public class auto4 extends LinearOpMode {
     Hardware robot = new Hardware(this);
     @Override
     public void runOpMode() throws InterruptedException {
+        //waits for player to press start
         waitForStart();
         if (opModeIsActive()) {
             robot.init();

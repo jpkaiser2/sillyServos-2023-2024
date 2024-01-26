@@ -1,11 +1,13 @@
 package org.firstinspires.ftc.teamcode;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 //Created by Jacob Kaiserman
-@Autonomous
+//@Autonomous
+@Disabled
 public class autonomous extends LinearOpMode {
     private DcMotor frontLeft;
     private DcMotor backLeft;
