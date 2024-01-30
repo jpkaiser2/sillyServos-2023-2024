@@ -16,17 +16,17 @@ public class auto3 extends LinearOpMode {
         waitForStart();
         if (opModeIsActive()) {
             robot.init();
-            robot.drive("forward",0.5,200);
+            robot.drive("forward",0.5,300);
             robot.stop();
             robot.drive("left",1,600);
             robot.stop();
-            robot.drive("forward",1,600);
+            robot.drive("forward",1,650);
             robot.stop();
             robot.drive("left",1,700);
             robot.stop();
             robot.turn("left",1,400);
             robot.stop();
-            robot.drive("forward",0.75,1000);
+            robot.drive("forward",0.75,1200);
             robot.stop();
             robot.drive("backward",0.75,500);
             robot.stop();

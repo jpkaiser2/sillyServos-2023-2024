@@ -5,10 +5,10 @@ import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-@Autonomous(name="auto4", group="Linear Opmode")
+@Autonomous(name="auto1", group="Linear Opmode")
 //Auto for red alliance back
 // @Disabled
-public class auto4 extends LinearOpMode {
+public class auto1 extends LinearOpMode {
     Hardware robot = new Hardware(this);
     @Override
     public void runOpMode() throws InterruptedException {
@@ -18,21 +18,19 @@ public class auto4 extends LinearOpMode {
             robot.init();
             robot.drive("forward",0.5,200);
             robot.stop();
-            robot.drive("right",1,800);
+            robot.drive("right",1,200);
             robot.stop();
-            robot.drive("forward",1,600);
+            robot.drive("forward",1,500);
             robot.stop();
-            robot.drive("right",1,700);
-            robot.stop();
-            robot.turn("right",1,500);
+            robot.turn("right",1,600);
             robot.stop();
             robot.drive("forward",0.75,1200);
             robot.stop();
             robot.drive("backward",0.75,500);
             robot.stop();
-            robot.drive("right",1,700);
+            robot.drive("right",1,800);
             robot.stop();
-            robot.drive("forward",0.75,800);
+            robot.drive("forward",0.75,700);
             robot.stop();
         }
     }
