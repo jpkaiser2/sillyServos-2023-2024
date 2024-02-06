@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -16,6 +17,7 @@ public class main extends LinearOpMode {
     //private DcMotor arm;
     //private Servo claw;
     private DcMotor hanger;
+    private CRServo drone;
 
     @Override
     public void runOpMode() throws InterruptedException { //if broken delete throws
@@ -34,6 +36,7 @@ public class main extends LinearOpMode {
         frontRight = hardwareMap.get(DcMotor.class, "frontRight");
         backRight = hardwareMap.get(DcMotor.class, "backRight");
         hanger = hardwareMap.get(DcMotor.class, "hanger");
+        drone = hardwareMap.get(CRServo.class, "drone");
         //arm = hardwareMap.get(DcMotor.class, "arm");
         //claw = hardwareMap.get(Servo.class, "claw");
 
@@ -94,6 +97,11 @@ public class main extends LinearOpMode {
                 }
                 else{
                     hanger.setPower(0);
+                }
+
+                if(gamepad1.right_bumper){
+                    drone.setPower(1);
+
                 }
                 //arm movement
                 /*if (gamepad1.left_trigger > 0) {
