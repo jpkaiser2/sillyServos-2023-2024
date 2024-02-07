@@ -17,3 +17,4 @@ Code repository for the Silly Servos robotics team 24213
 <p>Arm down: left trigger (13)</p>-->
 <p>Hanger up: a (7)</p>
 <p>Hanger down: b (6)</p>
+<p>Launch Airplane: RB (2)</p>
