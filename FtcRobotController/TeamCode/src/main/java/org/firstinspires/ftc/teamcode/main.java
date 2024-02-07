@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
+
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
@@ -17,7 +19,7 @@ public class main extends LinearOpMode {
     //private DcMotor arm;
     //private Servo claw;
     private DcMotor hanger;
-    private CRServo drone;
+    private Servo drone;
 
     @Override
     public void runOpMode() throws InterruptedException { //if broken delete throws
@@ -36,7 +38,10 @@ public class main extends LinearOpMode {
         frontRight = hardwareMap.get(DcMotor.class, "frontRight");
         backRight = hardwareMap.get(DcMotor.class, "backRight");
         hanger = hardwareMap.get(DcMotor.class, "hanger");
-        drone = hardwareMap.get(CRServo.class, "drone");
+        drone = hardwareMap.get(Servo.class, "drone");
+
+        drone = hardwareMap.get(Servo.class, "drone");
+        drone.setDirection(Servo.Direction.REVERSE);
         //arm = hardwareMap.get(DcMotor.class, "arm");
         //claw = hardwareMap.get(Servo.class, "claw");
 
@@ -53,6 +58,7 @@ public class main extends LinearOpMode {
             frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
             backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
             //arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            drone.setPosition(0.75);
 
 
             while (opModeIsActive()) {
@@ -61,6 +67,7 @@ public class main extends LinearOpMode {
                 y = -gamepad1.left_stick_y;
                 //sets rotation
                 clockwise = gamepad1.right_stick_x;
+
 
                 telemetry.addData("A", gamepad1.dpad_up);
                 //y-axis movement
@@ -100,47 +107,19 @@ public class main extends LinearOpMode {
                 }
 
                 if(gamepad1.right_bumper){
-                    drone.setPower(1);
+                    drone.setPosition(1);
 
                 }
-                //arm movement
-                /*if (gamepad1.left_trigger > 0) {
-                    //arm.setPower(gamepad1.left_trigger);
-                    //while (gamepad1.left_trigger > 0) {
-                        //arm.setTargetPosition(100);
-                    //}
-                    arm.setTargetPosition((arm.getCurrentPosition())-10);
-                    arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                    arm.setPower(0.75);
-                }
-                else if (gamepad1.right_trigger > 0) {
-                    //arm.setPower(-gamepad1.right_trigger);
-                    //while (gamepad1.left_trigger > 0) {
-                        //arm.setTargetPosition(-100);
-                    //}
-                    arm.setTargetPosition((arm.getCurrentPosition())+10);
-                    arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                    arm.setPower(0.75);
-                }
-                else {
-                    arm.setPower(0);
+                if(gamepad1.left_bumper){
+                    drone.setPosition(0.75);
+
                 }
 
-
-                    //claw movement
-                if (gamepad1.left_bumper) {
-                    // move to 180 degrees.
-                    claw.setPosition(0);
-                } else if (gamepad1.right_bumper) {
-                    // move to 90 degrees.
-                    claw.setPosition(1);
-                }*/
                     speed = 0.5;
                     fl /= speed;
                     fr /= speed;
                     bl /= speed;
                     br /= speed;
-
 
                     telemetry.addData("SPEED", speed);
                     telemetry.addData("FLP", fl);
@@ -150,7 +129,6 @@ public class main extends LinearOpMode {
                     telemetry.addData("Clockwise", clockwise);
                     telemetry.addData("Arm-L", gamepad1.left_trigger);
                     telemetry.addData("Arm-R", gamepad1.right_trigger);
-                    //telemetry.addData("Claw Position", claw.getPosition());
 
                     frontLeft.setPower(fl);
                     frontRight.setPower(fr);
@@ -159,7 +137,6 @@ public class main extends LinearOpMode {
 
                     telemetry.update();
                 }
-           // arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             }
         }
     }

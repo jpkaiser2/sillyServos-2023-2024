@@ -1,17 +1,20 @@
+//Created by Jacob Kaiserman
+//Silly Servos FTC Team #24213 - https://github.com/jpkaiser2/sillyServos
 package org.firstinspires.ftc.teamcode;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-@Autonomous(name="MyAutoOp", group="Linear Opmode")
-// @Disabled
+//@Autonomous(name="mainAuto", group="Linear Opmode")
+@Disabled
 public class newAuto extends LinearOpMode {
     private DcMotor frontLeft;
     private DcMotor backLeft;
     private DcMotor frontRight;
     private DcMotor backRight;
 
-    public void drive(String direction, double power) {
+    public void drive(String direction, double power, long time) {
         //switch statement for different directions
         switch(direction){
             case "stop":
@@ -21,6 +24,7 @@ public class newAuto extends LinearOpMode {
                 backLeft.setPower(0);
                 frontRight.setPower(0);
                 backRight.setPower(0);
+                sleep(time);
                 telemetry.addData(">", "stopped");
                 break;
             case "forward":
@@ -30,6 +34,7 @@ public class newAuto extends LinearOpMode {
                 backLeft.setPower(power);
                 frontRight.setPower(power);
                 backRight.setPower(power);
+                sleep(time);
                 telemetry.addData(">", "moved forward");
                 break;
             case "backward":
@@ -38,6 +43,7 @@ public class newAuto extends LinearOpMode {
                 backLeft.setPower(-power);
                 frontRight.setPower(-power);
                 backRight.setPower(-power);
+                sleep(time);
                 break;
             case "left":
                 //code for left
@@ -45,6 +51,7 @@ public class newAuto extends LinearOpMode {
                 backLeft.setPower(power);
                 frontRight.setPower(power);
                 backRight.setPower(-power);
+                sleep(time);
                 break;
             case "right":
                 //code for right
@@ -52,6 +59,7 @@ public class newAuto extends LinearOpMode {
                 backLeft.setPower(-power);
                 frontRight.setPower(-power);
                 backRight.setPower(power);
+                sleep(time);
                 break;
             default:
                 telemetry.addData(">", "no direction set");
@@ -72,21 +80,27 @@ public class newAuto extends LinearOpMode {
 
         frontLeft.setDirection(DcMotor.Direction.REVERSE);
         backLeft.setDirection(DcMotor.Direction.REVERSE);
+
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
-        if (opModeIsActive()) {
+        //if (opModeIsActive()) {
             //frontLeft.setPower(0.5);
             //frontRight.setPower(0.5);
             //backRight.setPower(0.5);
             //backLeft.setPower(0.5);
-            drive("forward",0.5);
-            sleep(200);
-            drive("stop",0);
+            drive("forward",0.5,200);
+            drive("stop",0,200);
+            drive("left",1,10000);
+            drive("stop",0,200);
+            //drive("forward",0.5);
+            //sleep(1000);
+            //drive("stop",0);
+            //drive("right",0.5);
 
             //frontLeft.setPower(0);
             //frontRight.setPower(0);
             //backRight.setPower(0);
             //backLeft.setPower(0);
-        }
+        //}
     }
 }

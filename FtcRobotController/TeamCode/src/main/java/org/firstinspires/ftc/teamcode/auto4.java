@@ -1,10 +1,12 @@
 //Created by Jacob Kaiserman
 //Silly Servos FTC Team #24213 - https://github.com/jpkaiser2/sillyServos
 package org.firstinspires.ftc.teamcode;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+@Disabled
 @Autonomous(name="auto4", group="Linear Opmode")
 //Auto for red alliance back
 // @Disabled

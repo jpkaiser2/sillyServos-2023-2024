@@ -2,6 +2,7 @@
 //Silly Servos FTC Team #24213 - https://github.com/jpkaiser2/sillyServos
 package org.firstinspires.ftc.teamcode;
 
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -24,6 +25,7 @@ public class Hardware {
     private DcMotor frontRight = null;
     private DcMotor backRight = null;
     private DcMotor arm = null;
+    private Servo drone = null;
    // private DcMotor hanger = null;
 
 
@@ -34,6 +36,9 @@ public class Hardware {
     }
 
     public void init(){
+        drone = hardwareMap.get(Servo.class, "drone");
+        drone.setDirection(Servo.Direction.REVERSE);
+
         frontLeft = myOpMode.hardwareMap.get(DcMotor.class, "frontLeft");
         backLeft = myOpMode.hardwareMap.get(DcMotor.class, "backLeft");
         frontRight = myOpMode.hardwareMap.get(DcMotor.class, "frontRight");
