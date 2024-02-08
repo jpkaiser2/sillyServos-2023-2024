@@ -36,7 +36,7 @@ public class Hardware {
     }
 
     public void init(){
-        drone = hardwareMap.get(Servo.class, "drone");
+        drone = myOpMode.hardwareMap.get(Servo.class, "drone");
         drone.setDirection(Servo.Direction.REVERSE);
 
         frontLeft = myOpMode.hardwareMap.get(DcMotor.class, "frontLeft");

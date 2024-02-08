@@ -11,13 +11,10 @@ import com.qualcomm.robotcore.hardware.Servo;
 //Created by Jacob Kaiserman
 @TeleOp
 public class main extends LinearOpMode {
-
     private DcMotor frontLeft;
     private DcMotor backLeft;
     private DcMotor frontRight;
     private DcMotor backRight;
-    //private DcMotor arm;
-    //private Servo claw;
     private DcMotor hanger;
     private Servo drone;
 
@@ -42,8 +39,6 @@ public class main extends LinearOpMode {
 
         drone = hardwareMap.get(Servo.class, "drone");
         drone.setDirection(Servo.Direction.REVERSE);
-        //arm = hardwareMap.get(DcMotor.class, "arm");
-        //claw = hardwareMap.get(Servo.class, "claw");
 
         //reverse direction of motors since diagonal axles are reversed
         frontLeft.setDirection(DcMotor.Direction.REVERSE);
@@ -58,7 +53,7 @@ public class main extends LinearOpMode {
             frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
             backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
             //arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-            drone.setPosition(0.75);
+            drone.setPosition(1);
 
 
             while (opModeIsActive()) {
@@ -107,11 +102,11 @@ public class main extends LinearOpMode {
                 }
 
                 if(gamepad1.right_bumper){
-                    drone.setPosition(1);
+                    drone.setPosition(0.5);
 
                 }
                 if(gamepad1.left_bumper){
-                    drone.setPosition(0.75);
+                    drone.setPosition(1);
 
                 }
 
