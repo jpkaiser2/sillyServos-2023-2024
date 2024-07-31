@@ -3,10 +3,10 @@ Code repository for the Silly Servos Robotics Team #24213
 <br>
 2023-2024 FTC Centerstage
 
-<img src="https://jacobkaiserman.com/sillyServos/images/hpRobotics.png" width="30%">
+<img src="https://jacobkaiserman.com/sillyServos-2023-2024/images/hpRobotics.png" width="30%">
 <br>
 <h2>Controls</h2>
-<img src="https://jacobkaiserman.com/sillyServos/controller.png">
+<img src="https://jacobkaiserman.com/sillyServos-2023-2024/controller.png">
 
 
 <p>Forward: left joystick (3) up</p>
@@ -38,4 +38,4 @@ Initially, we tried to make a hook mechanism capable of securing a locked positi
 <b>Airplane Launcher:</b>
 For our last tournament, our focus was on achieving the highest amount of points from the third competition to the fourth. The launcher is made of a metal bar, two L-brackets to keep the airplane held, and a servo at the rear end. The servo has an additional L-bracket, facilitating the controlled deployment of a 2-inch screw housing a rubber band. A rubber band tied to the front is pulled back and fastened to the screw of the servo. Coming into the fourth competition, this was our biggest addition to the physical robot.
 </p>
-<img src="https://jacobkaiserman.com/sillyServos/images/hanging.png" width="50%">
+<img src="https://jacobkaiserman.com/sillyServos-2023-2024/images/hanging.png" width="50%">
